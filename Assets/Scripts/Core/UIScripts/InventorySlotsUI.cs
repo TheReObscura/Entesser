@@ -1,15 +1,15 @@
 ﻿using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 public class InventorySlotUI :
     MonoBehaviour,
     IBeginDragHandler,
     IDragHandler,
     IEndDragHandler,
-    IDropHandler,
-    IPointerDownHandler
+    IDropHandler
 {
     [Header("UI")]
     public GameObject highlight;
@@ -21,70 +21,72 @@ public class InventorySlotUI :
     public SlotType type;
 
     public static InventorySlotUI draggedItem;
-
-    private InventorySlot boundSlot;
-
-    public void OnPointerDown(PointerEventData eventData)
-    {
-        // просто для дебага, можно убрать
-        // Debug.Log($"PointerDown: {name}");
-    }
+    public static int draggedAmount;
 
     public void OnBeginDrag(PointerEventData eventData)
     {
-        if (boundSlot == null || boundSlot.item == null)
+        var slot = InventoryManager.Instance.GetSlot(type, index);
+
+        if (slot == null || slot.item == null)
             return;
 
         draggedItem = this;
 
-        DragIconController.Instance.Show(icon.sprite);
+        bool shift =
+            Keyboard.current != null &&
+            Keyboard.current.leftShiftKey.isPressed;
 
-        DragIconController.Instance.SetPosition(eventData.position);
+        draggedAmount =
+            shift
+                ? Mathf.Max(1, slot.amount / 2)
+                : slot.amount;
+
+        if (DragIconController.Instance != null)
+            DragIconController.Instance.Show(slot.item.icon);
     }
 
     public void OnDrag(PointerEventData eventData)
     {
-        Debug.Log("DRAG");
-
-        Debug.Log($"Instance: {DragIconController.Instance}");
-
         if (DragIconController.Instance == null)
-        {
-            Debug.LogError("DRAG CONTROLLER NULL");
-
             return;
-        }
 
-        DragIconController.Instance
-            .SetPosition(
-                eventData.position
-            );
+        DragIconController.Instance.SetPosition(eventData.position);
     }
 
-    public void OnEndDrag(
-     PointerEventData eventData
- )
+    public void OnEndDrag(PointerEventData eventData)
     {
-        DragIconController.Instance.Hide();
+        if (DragIconController.Instance != null)
+            DragIconController.Instance.Hide();
 
         draggedItem = null;
+        draggedAmount = 0;
     }
-
     public void OnDrop(PointerEventData eventData)
     {
         if (draggedItem == null)
             return;
 
-        if (draggedItem == this)
-            return;
+        InventorySlot from =
+            InventoryManager.Instance.GetSlot(
+                draggedItem.type,
+                draggedItem.index
+            );
 
-        InventoryManager.Instance.SwapSlots(draggedItem.type, draggedItem.index, type, index);
-        Debug.Log($"DROP {draggedItem.index} → {index}");
-        DragIconController.Instance.Hide();
+        InventorySlot to =
+            InventoryManager.Instance.GetSlot(
+                type,
+                index
+            );
+
+        InventoryManager.Instance.TransferItem(
+            from,
+            to,
+            draggedAmount
+        );
 
         draggedItem = null;
+        draggedAmount = 0;
     }
-
     public void SetHighlight(bool value)
     {
         if (highlight != null)
@@ -93,11 +95,10 @@ public class InventorySlotUI :
 
     public void UpdateSlot(InventorySlot slot)
     {
-        boundSlot = slot;
-
         if (slot == null || slot.item == null)
         {
-            icon.enabled = false;
+            if (icon != null)
+                icon.enabled = false;
 
             if (amount != null)
                 amount.gameObject.SetActive(false);
@@ -105,21 +106,25 @@ public class InventorySlotUI :
             return;
         }
 
-        icon.enabled = true;
-        icon.sprite = slot.item.icon;
+        if (icon != null)
+        {
+            icon.enabled = true;
+            icon.sprite = slot.item.icon;
+        }
 
         if (amount != null)
         {
             amount.gameObject.SetActive(slot.amount > 1);
             amount.text = slot.amount.ToString();
         }
-        amount.text = slot.item.name;
     }
 
     public enum SlotType
     {
         Inventory,
         Hotbar,
-        Equipment
+        Equipment,
+        Chest,
+        Craft
     }
 }

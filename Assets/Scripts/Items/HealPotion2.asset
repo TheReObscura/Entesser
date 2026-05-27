@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 0}
-  m_Name: HealPotion
+  m_Name: HealPotion2
   m_EditorClassIdentifier: Assembly-CSharp:Assets.Scripts.Items:PotionData
-  itemName: Heal Potion
+  itemName: Heal Potion lvl 2
   icon: {fileID: 0}
   type: 8
   maxStack: 16
   usable: 1
-  id: heal_potion
-  heal: 15
+  id: heal_potion_2
+  heal: 40

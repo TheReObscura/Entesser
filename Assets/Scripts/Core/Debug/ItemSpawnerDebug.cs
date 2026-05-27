@@ -1,5 +1,6 @@
 ﻿using Assets.Scripts.Items;
 using UnityEngine;
+using Assets.Scripts.Core.Debug;
 
 public class ItemSpawnerDebug : MonoBehaviour
 {
@@ -8,7 +9,7 @@ public class ItemSpawnerDebug : MonoBehaviour
 
     void Update()
     {
-        if (GameInput.instance.IsDebugSpawn())
+        if (DebugInputCont.instance.SpawnItem())
         {
             Spawn();
         }

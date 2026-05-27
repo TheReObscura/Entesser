@@ -1,0 +1,115 @@
+{
+    "version": 1,
+    "name": "DebugInput",
+    "maps": [
+        {
+            "name": "Debug",
+            "id": "38bb5a9d-7d40-4a2d-bfee-fd26010c28bf",
+            "actions": [
+                {
+                    "name": "SpawnPotion",
+                    "type": "Button",
+                    "id": "633d124a-8a6f-4f53-8137-257fdeec236b",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "DealDamage",
+                    "type": "Button",
+                    "id": "3964ff0f-b1ae-4b93-b941-9e153793ca50",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "TakeMana",
+                    "type": "Button",
+                    "id": "6e3a8856-ed85-4fe2-99f3-e0987464b109",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "GiveXP",
+                    "type": "Button",
+                    "id": "0dd11cc2-2057-41ec-9ea4-4bfea402109f",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Heal",
+                    "type": "Button",
+                    "id": "99e6fad1-8851-4260-8d0a-97dae464eacd",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "a0097142-37ec-47ad-900a-1f2a3cfcef6d",
+                    "path": "<Keyboard>/f7",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "SpawnPotion",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "90be49d3-1d1f-4ba2-a140-4ff2933d61e9",
+                    "path": "<Keyboard>/f8",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "DealDamage",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "dd245beb-24fc-4d04-a968-869289cca2ef",
+                    "path": "<Keyboard>/f9",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "TakeMana",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "dcc5f931-abef-4381-b623-8e5c75350997",
+                    "path": "<Keyboard>/f10",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "GiveXP",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "bf87612e-58e5-433b-8726-58d14138f826",
+                    "path": "<Keyboard>/f11",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Heal",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}

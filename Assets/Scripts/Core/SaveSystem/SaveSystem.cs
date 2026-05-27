@@ -6,8 +6,6 @@ using System.Text;
 using UnityEditor.Overlays;
 using UnityEngine;
 
-namespace Assets.Scripts.Core.SaveSystem
-{
     public static class SaveSystem
     {
         private static string GetPath(int slotId)
@@ -66,8 +64,15 @@ namespace Assets.Scripts.Core.SaveSystem
         public InventorySlotSave[] inventory;
 
         public int selectedHotbarSlot;
+        public List<ChestSaveData> chests = new();
     }
+    [Serializable]
+    public class ChestSaveData
+    {
+        public string chestId;
 
+        public InventorySlotSave[] slots;
+    }
     [Serializable]
     public class SaveSlotHeader
     {
@@ -83,4 +88,3 @@ namespace Assets.Scripts.Core.SaveSystem
 
         public int amount;
     }
-}

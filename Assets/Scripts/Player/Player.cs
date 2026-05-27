@@ -6,6 +6,7 @@ namespace Assets.Scripts.Player
 {
     public class Player : MonoBehaviour
     {
+        public static Player Instance;
         // ========================= Поля.
         private Rigidbody2D rigBody;
         // Движение.
@@ -37,6 +38,7 @@ namespace Assets.Scripts.Player
         }
         void Awake()
         {
+            Instance = this;
             rigBody = GetComponent<Rigidbody2D>();
             pickup = GetComponent<PlayerPickup>();
         }
@@ -56,7 +58,7 @@ namespace Assets.Scripts.Player
             {
                 InventoryManager.Instance.ChangeHotbarSlot(scroll.y);
             }
-                
+            stats.RegenerateMana(Time.deltaTime);
             HandleInteract();
 
         }

@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using TMPro;
 using UnityEngine;
-namespace Assets.Scripts.Core.SaveSystem
-{
+
     public class SaveSlotUI : MonoBehaviour
     {
         public int slotId;
@@ -44,4 +43,3 @@ namespace Assets.Scripts.Core.SaveSystem
         }
     }
 
-}

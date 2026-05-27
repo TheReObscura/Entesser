@@ -19,10 +19,7 @@ namespace Assets.Scripts.Items
         Potions
     }
 
-    [CreateAssetMenu(
-    fileName = "Item",
-    menuName = "Inventory/Item"
-    )]
+    [CreateAssetMenu(fileName = "Item",menuName = "Inventory/Item")]
     public class ItemData : ScriptableObject
     {
         public string itemName;
@@ -43,14 +40,10 @@ namespace Assets.Scripts.Items
         }
     }
 
-    [CreateAssetMenu(
-    fileName = "Potion",
-    menuName = "Inventory/Potion"
-)]
+    [CreateAssetMenu(fileName = "Potion",menuName = "Inventory/Potion")]
     public class PotionData : ItemData
     {
         public int heal;
-
         public override void Use()
         {
             var player =

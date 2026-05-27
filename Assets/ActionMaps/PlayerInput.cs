@@ -156,27 +156,9 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""DebugXP"",
-                    ""type"": ""Button"",
-                    ""id"": ""3b8ddfeb-0574-45a6-95ee-9c33f27afbb6"",
-                    ""expectedControlType"": """",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
                     ""name"": ""Interact"",
                     ""type"": ""Button"",
                     ""id"": ""2dd9869b-543c-4676-8610-9a5acd8d550a"",
-                    ""expectedControlType"": """",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""DebugSpawn"",
-                    ""type"": ""Button"",
-                    ""id"": ""12297e06-58c9-41c5-83da-88dee84db3d9"",
                     ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
@@ -316,34 +298,12 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""24b41413-ed36-409d-b34d-29f8839eb479"",
-                    ""path"": ""<Keyboard>/f10"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""DebugXP"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
                     ""id"": ""d4923a23-c3d1-4de3-8e31-220a7babe68e"",
                     ""path"": ""<Keyboard>/f"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Interact"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""041b66ca-f5e9-435b-870e-e9de5acc1b2d"",
-                    ""path"": ""<Keyboard>/g"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""DebugSpawn"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -372,9 +332,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         m_Player_Sphere = m_Player.FindAction("Sphere", throwIfNotFound: true);
         m_Player_Book = m_Player.FindAction("Book", throwIfNotFound: true);
         m_Player_Fire = m_Player.FindAction("Fire", throwIfNotFound: true);
-        m_Player_DebugXP = m_Player.FindAction("DebugXP", throwIfNotFound: true);
         m_Player_Interact = m_Player.FindAction("Interact", throwIfNotFound: true);
-        m_Player_DebugSpawn = m_Player.FindAction("DebugSpawn", throwIfNotFound: true);
         m_Player_Scroll = m_Player.FindAction("Scroll", throwIfNotFound: true);
     }
 
@@ -463,9 +421,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Sphere;
     private readonly InputAction m_Player_Book;
     private readonly InputAction m_Player_Fire;
-    private readonly InputAction m_Player_DebugXP;
     private readonly InputAction m_Player_Interact;
-    private readonly InputAction m_Player_DebugSpawn;
     private readonly InputAction m_Player_Scroll;
     /// <summary>
     /// Provides access to input actions defined in input action map "Player".
@@ -507,17 +463,9 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         /// </summary>
         public InputAction @Fire => m_Wrapper.m_Player_Fire;
         /// <summary>
-        /// Provides access to the underlying input action "Player/DebugXP".
-        /// </summary>
-        public InputAction @DebugXP => m_Wrapper.m_Player_DebugXP;
-        /// <summary>
         /// Provides access to the underlying input action "Player/Interact".
         /// </summary>
         public InputAction @Interact => m_Wrapper.m_Player_Interact;
-        /// <summary>
-        /// Provides access to the underlying input action "Player/DebugSpawn".
-        /// </summary>
-        public InputAction @DebugSpawn => m_Wrapper.m_Player_DebugSpawn;
         /// <summary>
         /// Provides access to the underlying input action "Player/Scroll".
         /// </summary>
@@ -569,15 +517,9 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @Fire.started += instance.OnFire;
             @Fire.performed += instance.OnFire;
             @Fire.canceled += instance.OnFire;
-            @DebugXP.started += instance.OnDebugXP;
-            @DebugXP.performed += instance.OnDebugXP;
-            @DebugXP.canceled += instance.OnDebugXP;
             @Interact.started += instance.OnInteract;
             @Interact.performed += instance.OnInteract;
             @Interact.canceled += instance.OnInteract;
-            @DebugSpawn.started += instance.OnDebugSpawn;
-            @DebugSpawn.performed += instance.OnDebugSpawn;
-            @DebugSpawn.canceled += instance.OnDebugSpawn;
             @Scroll.started += instance.OnScroll;
             @Scroll.performed += instance.OnScroll;
             @Scroll.canceled += instance.OnScroll;
@@ -613,15 +555,9 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @Fire.started -= instance.OnFire;
             @Fire.performed -= instance.OnFire;
             @Fire.canceled -= instance.OnFire;
-            @DebugXP.started -= instance.OnDebugXP;
-            @DebugXP.performed -= instance.OnDebugXP;
-            @DebugXP.canceled -= instance.OnDebugXP;
             @Interact.started -= instance.OnInteract;
             @Interact.performed -= instance.OnInteract;
             @Interact.canceled -= instance.OnInteract;
-            @DebugSpawn.started -= instance.OnDebugSpawn;
-            @DebugSpawn.performed -= instance.OnDebugSpawn;
-            @DebugSpawn.canceled -= instance.OnDebugSpawn;
             @Scroll.started -= instance.OnScroll;
             @Scroll.performed -= instance.OnScroll;
             @Scroll.canceled -= instance.OnScroll;
@@ -715,26 +651,12 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnFire(InputAction.CallbackContext context);
         /// <summary>
-        /// Method invoked when associated input action "DebugXP" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
-        /// </summary>
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-        void OnDebugXP(InputAction.CallbackContext context);
-        /// <summary>
         /// Method invoked when associated input action "Interact" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
         /// </summary>
         /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnInteract(InputAction.CallbackContext context);
-        /// <summary>
-        /// Method invoked when associated input action "DebugSpawn" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
-        /// </summary>
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-        void OnDebugSpawn(InputAction.CallbackContext context);
         /// <summary>
         /// Method invoked when associated input action "Scroll" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
         /// </summary>

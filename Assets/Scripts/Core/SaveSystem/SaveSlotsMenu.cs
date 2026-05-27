@@ -4,8 +4,7 @@ using System.Text;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace Assets.Scripts.Core.SaveSystem
-{
+
     public class SaveSlotsMenu : MonoBehaviour
     {
         public static SaveSlotsMenu instance;
@@ -80,4 +79,4 @@ namespace Assets.Scripts.Core.SaveSystem
                 slot.Refresh();
         }
     }
-}
+

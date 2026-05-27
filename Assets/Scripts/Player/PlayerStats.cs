@@ -26,6 +26,9 @@ namespace Assets.Scripts.Player
         // ТЕКУЩИЕ ЗНАЧЕНИЯ
         public float currentHP;
         public float currentMana;
+        // Для регенерации
+        public float manaRegenRate = 2f;
+        private float regenTimer;
 
         // ОЧКИ УЛУЧШЕНИЯ
         public int upgradePoints = 0;
@@ -44,6 +47,11 @@ namespace Assets.Scripts.Player
         {
             currentHP = MaxHP;
             currentMana = MaxMana;
+        }
+
+        public void StatUpdate(float deltaTime)
+        {
+            RegenerateMana(deltaTime);
         }
 
         public void TakePhysicalDamage(float dmg)
@@ -85,6 +93,19 @@ namespace Assets.Scripts.Player
 
             if (currentMana < 0)
                 currentMana = 0;
+        }
+        public void RegenerateMana(float deltaTime)
+        {
+            regenTimer += deltaTime;
+
+            if (regenTimer >= 1f)
+            {
+                currentMana += manaRegenRate;
+                regenTimer = 0f;
+
+                if (currentMana > MaxMana)
+                    currentMana = MaxMana;
+            }
         }
         public void RestoreMana(float amount)
         {

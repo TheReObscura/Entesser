@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Assets.Scripts.Core.Debug;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
@@ -15,34 +16,32 @@ namespace Assets.Scripts.Player
         public int baseXP = 100;
         public int stepXP = 25;
 
-        public Player player;
+        Player player;
         void Start()
         {
             player.stats.Init();
+            player = Player.Instance;
         }
         void Update()
         {
-            if (GameInput.instance != null && GameInput.instance.IsDebugXP())
+            if (DebugInputCont.instance.GiveXP())
             {
                 AddXP(500);
             }
         }
         public void AddXP(int amount)
         {
-            Debug.Log("Yup i got this");
-            if (level >= maxLevel) return;
+            int needed = XPToNextLevel();
 
-            currentXP += amount;
-
-            while (currentXP >= XPToNextLevel() && level < maxLevel)
+            while (currentXP >= needed && level < maxLevel)
             {
-                Debug.Log("Got this too");
-                currentXP -= XPToNextLevel();
+                currentXP -= needed;
                 LevelUp();
+                needed = XPToNextLevel();
             }
         }
 
-        int XPToNextLevel()
+        public int XPToNextLevel()
         {
             return baseXP + (level * stepXP);
         }

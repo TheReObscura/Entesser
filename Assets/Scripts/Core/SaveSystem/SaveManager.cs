@@ -5,8 +5,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
-namespace Assets.Scripts.Core.SaveSystem
-{
+
     public static class SaveTransfer
     {
         public static SaveData pendingLoad;
@@ -15,7 +14,7 @@ namespace Assets.Scripts.Core.SaveSystem
     {
         public static SaveManager instance;
 
-        public Player.Player player;
+        public Player player;
         public PlayerLevelSystem levelSystem;
         public SaveData pendingLoad;
         private void Awake()
@@ -46,35 +45,25 @@ namespace Assets.Scripts.Core.SaveSystem
             data.xp = levelSystem.currentXP;
             var inv =  InventoryManager.Instance;
 
-            data.inventory =
-                new InventorySlotSave[
-                    inv.inventory.Length
-                ];
+            data.inventory = new InventorySlotSave[ inv.inventory.Length];
 
-            for (
-                int i = 0;
-                i < inv.inventory.Length;
-                i++
-            )
+            for (int i = 0; i < inv.inventory.Length;i++)
             {
                 data.inventory[i] =
                     new InventorySlotSave
                     {
-                        itemId =
-                            inv.inventory[i]
-                            .item != null
-                            ? inv.inventory[i]
-                            .item.id
-                            : "",
+                        itemId = inv.inventory[i].item != null ? inv.inventory[i].item.id : "",
 
-                        amount =
-                            inv.inventory[i]
-                            .amount
+                        amount = inv.inventory[i].amount
                     };
             }
+            Chest[] all = FindObjectsByType<Chest>(FindObjectsSortMode.None);
 
-            data.selectedHotbarSlot =
-                inv.selectedHotbarSlot;
+            foreach ( var chest in all)
+            {
+                data.chests.Add(chest.GetSaveData());
+            }
+            data.selectedHotbarSlot = inv.selectedHotbarSlot;
             data.header = CreateHeader();
 
             SaveSystem.Save(slotId, data);
@@ -95,7 +84,7 @@ namespace Assets.Scripts.Core.SaveSystem
 
             yield return null;
 
-            player = FindFirstObjectByType<Player.Player>();
+            player = FindFirstObjectByType<Player>();
             levelSystem = FindFirstObjectByType<PlayerLevelSystem>();
 
             ApplyData(data);
@@ -105,67 +94,70 @@ namespace Assets.Scripts.Core.SaveSystem
             player.stats = data.stats;
 
             levelSystem.level = data.level;
+
             levelSystem.currentXP = data.xp;
 
             player.stats.Init();
-            var inv =
-    InventoryManager.Instance;
 
+            var inv = InventoryManager.Instance;
+
+            // игрок
             if (data.inventory != null)
             {
-                for (
-                    int i = 0;
-                    i < inv.inventory.Length;
-                    i++
-                )
+                for (int i = 0; i < inv.inventory.Length;i++)
                 {
-                    if (
-                        i >=
-                        data.inventory.Length
-                    )
+                    if (i >= data.inventory.Length)
                         break;
 
-                    var slot =
-                        data.inventory[i];
+                    var slot = data.inventory[i];
 
-                    if (
-                        string.IsNullOrEmpty(
-                            slot.itemId
-                        )
-                    )
+                    if (string.IsNullOrEmpty(slot.itemId))
                     {
-                        inv.inventory[i]
-                            .Clear();
+                        inv.inventory[i].Clear();
 
                         continue;
                     }
 
-                    inv.inventory[i].item =
-                        ItemDatabase
-                        .Instance
-                        .GetItem(
-                            slot.itemId
-                        );
+                    inv.inventory[i].item = ItemDatabase.Instance.GetItem(slot.itemId);
 
-                    inv.inventory[i]
-                        .amount =
-                        slot.amount;
+                    inv.inventory[i].amount = slot.amount;
                 }
 
-                inv.selectedHotbarSlot =
-                    data.selectedHotbarSlot;
-
-                StartCoroutine(DelayedUIRefresh());
+                inv.selectedHotbarSlot = data.selectedHotbarSlot;
             }
-            Debug.Log("[SaveManager] Game loaded");
+
+            // сундуки
+            if (data.chests != null)
+            {
+                Chest[] chests = FindObjectsByType<Chest>(FindObjectsSortMode.None);
+
+                foreach (var chestData in data.chests)
+                {
+                    foreach (var chest in chests)
+                    {
+                        if (chest.chestId != chestData.chestId)
+                            continue;
+
+                        chest.LoadData(chestData);
+
+                        break;
+                    }
+                }
+            }
+
+            StartCoroutine(
+                DelayedUIRefresh()
+            );
+
+            Debug.Log(
+                "[SaveManager] Game loaded"
+            );
         }
         IEnumerator DelayedUIRefresh()
         {
             yield return null;
 
-            InventoryManager
-                .Instance
-                .RefreshUI();
+            InventoryManager.Instance.RefreshUI();
         }
         private SaveSlotHeader CreateHeader()
         {
@@ -176,5 +168,7 @@ namespace Assets.Scripts.Core.SaveSystem
                 lastSaveDate = DateTime.Now.ToString("yyyy-MM-dd HH:mm")
             };
         }
+
+
     }
-}
+

@@ -1,9 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class UIManager : MonoBehaviour
 {
     public static UIManager instance;
+
+    public static event Action<WindowType> OnWindowClosed;
 
     public GameObject inventory;
     public GameObject crafting;
@@ -72,7 +75,13 @@ public class UIManager : MonoBehaviour
         if (type == WindowType.Inventory && inventory)
             inventory.SetActive(true);
         else if (type == WindowType.Crafting && crafting)
-            crafting.SetActive(true);
+        {
+            if (crafting)
+                crafting.SetActive(true);
+
+            if (inventory)
+                inventory.SetActive(true);
+        }
         else if (type == WindowType.Map && map)
             map.SetActive(true);
         else if (type == WindowType.Directory && directory)
@@ -95,8 +104,14 @@ public class UIManager : MonoBehaviour
 
     public void CloseAll()
     {
+        WindowType closed = currentWindow;
+
         currentWindow = WindowType.None;
+
         CloseAllInternal();
+
+        OnWindowClosed?.Invoke(closed);
+
         UpdateInputMode();
     }
 

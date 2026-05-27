@@ -25,9 +25,7 @@ public class GameInput : MonoBehaviour
     public bool IsFireActive() => playerInput.Player.Fire.WasPressedThisFrame();
     public bool IsBookActive() => playerInput.Player.Book.WasPressedThisFrame();
     public bool IsSphereActive() => playerInput.Player.Sphere.WasPressedThisFrame();
-    public bool IsDebugXP() => playerInput.Player.DebugXP.WasPressedThisFrame();
     public bool IsInteract() => playerInput.Player.Interact.WasPressedThisFrame();
-    public bool IsDebugSpawn() =>playerInput.Player.DebugSpawn.WasPressedThisFrame();
     public Vector2 GetScroll()
     {
         return playerInput.Player.Scroll.ReadValue<Vector2>();

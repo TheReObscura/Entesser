@@ -35,7 +35,7 @@ public class DragIconController : MonoBehaviour
     {
         rect.position = pos;
 
-        Debug.Log(rect.position);
+       // Debug.Log(rect.position);
        
     }
 }
