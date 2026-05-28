@@ -34,6 +34,8 @@ namespace Assets.Scripts.Player
         // Подбор.
         public PlayerPickup pickup;
         public HandItemView handView;
+        [SerializeField] LayerMask npcMask;
+        NPC npc;
         void Start()
         {
             stats.Init();
@@ -64,12 +66,43 @@ namespace Assets.Scripts.Player
             stats.RegenerateMana(Time.deltaTime);
             HandleInteract();
 
+            if (GameInput.instance.IsInteract())
+            {
+                TryInteract();
+            }
+
+            if (DialogueSystem.Instance.entered && GameInput.instance.Attack())
+                DialogueSystem.Instance.Next();
+        }
+        void TryInteract()
+        {
+            Collider2D hit =
+    Physics2D.OverlapCircle(transform.position, 2.5f, npcMask);
+
+            if (hit == null)
+            {
+                Debug.Log("NO HIT");
+                return;
+            }
+
+            Debug.Log("HIT: " + hit.name);
+
+            NPC npc = hit.GetComponent<NPC>();
+
+            if (npc == null)
+            {
+                Debug.Log("NO NPC ON HIT OBJECT");
+                return;
+            }
+
+            npc.Interact();
         }
         // Вызывается по фиксированному таймеру. Физика происходящего.
         void FixedUpdate()
         {
             HandleMovement();
         }
+
         // ========================= Движение.
         void HandleMovement()
         {
@@ -108,15 +141,10 @@ namespace Assets.Scripts.Player
         //======
         void HandleInteract()
         {
-            if (
-                !GameInput
-                .instance
-                .IsInteract()
-            )
+            if (!GameInput.instance.IsInteract())
                 return;
 
-            Collider2D[] hits =
-    Physics2D.OverlapCircleAll(transform.position, 1.5f);
+            Collider2D[] hits = Physics2D.OverlapCircleAll(transform.position, 1.5f);
 
             Pickup bestPickup = null;
             Chest bestChest = null;
