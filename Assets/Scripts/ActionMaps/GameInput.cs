@@ -30,5 +30,6 @@ public class GameInput : MonoBehaviour
     {
         return playerInput.Player.Scroll.ReadValue<Vector2>();
     }
+    public bool Attack() => playerInput.Player.Attack.WasPressedThisFrame();
 
 }

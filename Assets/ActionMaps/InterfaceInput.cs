@@ -163,6 +163,15 @@ public partial class @InterfaceInput: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Spells"",
+                    ""type"": ""Button"",
+                    ""id"": ""150c89df-8385-4ed0-9f91-3bb191cb51d8"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -253,6 +262,17 @@ public partial class @InterfaceInput: IInputActionCollection2, IDisposable
                     ""action"": ""Menu"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""7209a4c9-3f89-4a57-b5d1-6b0135bd3c5f"",
+                    ""path"": ""<Keyboard>/p"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Spells"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -269,6 +289,7 @@ public partial class @InterfaceInput: IInputActionCollection2, IDisposable
         m_Interface_Achievements = m_Interface.FindAction("Achievements", throwIfNotFound: true);
         m_Interface_Inventory = m_Interface.FindAction("Inventory", throwIfNotFound: true);
         m_Interface_Menu = m_Interface.FindAction("Menu", throwIfNotFound: true);
+        m_Interface_Spells = m_Interface.FindAction("Spells", throwIfNotFound: true);
     }
 
     ~@InterfaceInput()
@@ -357,6 +378,7 @@ public partial class @InterfaceInput: IInputActionCollection2, IDisposable
     private readonly InputAction m_Interface_Achievements;
     private readonly InputAction m_Interface_Inventory;
     private readonly InputAction m_Interface_Menu;
+    private readonly InputAction m_Interface_Spells;
     /// <summary>
     /// Provides access to input actions defined in input action map "Interface".
     /// </summary>
@@ -400,6 +422,10 @@ public partial class @InterfaceInput: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "Interface/Menu".
         /// </summary>
         public InputAction @Menu => m_Wrapper.m_Interface_Menu;
+        /// <summary>
+        /// Provides access to the underlying input action "Interface/Spells".
+        /// </summary>
+        public InputAction @Spells => m_Wrapper.m_Interface_Spells;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -450,6 +476,9 @@ public partial class @InterfaceInput: IInputActionCollection2, IDisposable
             @Menu.started += instance.OnMenu;
             @Menu.performed += instance.OnMenu;
             @Menu.canceled += instance.OnMenu;
+            @Spells.started += instance.OnSpells;
+            @Spells.performed += instance.OnSpells;
+            @Spells.canceled += instance.OnSpells;
         }
 
         /// <summary>
@@ -485,6 +514,9 @@ public partial class @InterfaceInput: IInputActionCollection2, IDisposable
             @Menu.started -= instance.OnMenu;
             @Menu.performed -= instance.OnMenu;
             @Menu.canceled -= instance.OnMenu;
+            @Spells.started -= instance.OnSpells;
+            @Spells.performed -= instance.OnSpells;
+            @Spells.canceled -= instance.OnSpells;
         }
 
         /// <summary>
@@ -581,5 +613,12 @@ public partial class @InterfaceInput: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnMenu(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Spells" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnSpells(InputAction.CallbackContext context);
     }
 }

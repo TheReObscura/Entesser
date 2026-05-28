@@ -136,6 +136,15 @@ public partial class @DebugInput: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""SpawnWeapon"",
+                    ""type"": ""Button"",
+                    ""id"": ""f81d12c9-1eae-47d6-96d4-56f624ff4acf"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -193,6 +202,17 @@ public partial class @DebugInput: IInputActionCollection2, IDisposable
                     ""action"": ""Heal"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""251a26b9-722f-4884-8855-4a9a8fb7f227"",
+                    ""path"": ""<Keyboard>/f1"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SpawnWeapon"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -206,6 +226,7 @@ public partial class @DebugInput: IInputActionCollection2, IDisposable
         m_Debug_TakeMana = m_Debug.FindAction("TakeMana", throwIfNotFound: true);
         m_Debug_GiveXP = m_Debug.FindAction("GiveXP", throwIfNotFound: true);
         m_Debug_Heal = m_Debug.FindAction("Heal", throwIfNotFound: true);
+        m_Debug_SpawnWeapon = m_Debug.FindAction("SpawnWeapon", throwIfNotFound: true);
     }
 
     ~@DebugInput()
@@ -291,6 +312,7 @@ public partial class @DebugInput: IInputActionCollection2, IDisposable
     private readonly InputAction m_Debug_TakeMana;
     private readonly InputAction m_Debug_GiveXP;
     private readonly InputAction m_Debug_Heal;
+    private readonly InputAction m_Debug_SpawnWeapon;
     /// <summary>
     /// Provides access to input actions defined in input action map "Debug".
     /// </summary>
@@ -322,6 +344,10 @@ public partial class @DebugInput: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "Debug/Heal".
         /// </summary>
         public InputAction @Heal => m_Wrapper.m_Debug_Heal;
+        /// <summary>
+        /// Provides access to the underlying input action "Debug/SpawnWeapon".
+        /// </summary>
+        public InputAction @SpawnWeapon => m_Wrapper.m_Debug_SpawnWeapon;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -363,6 +389,9 @@ public partial class @DebugInput: IInputActionCollection2, IDisposable
             @Heal.started += instance.OnHeal;
             @Heal.performed += instance.OnHeal;
             @Heal.canceled += instance.OnHeal;
+            @SpawnWeapon.started += instance.OnSpawnWeapon;
+            @SpawnWeapon.performed += instance.OnSpawnWeapon;
+            @SpawnWeapon.canceled += instance.OnSpawnWeapon;
         }
 
         /// <summary>
@@ -389,6 +418,9 @@ public partial class @DebugInput: IInputActionCollection2, IDisposable
             @Heal.started -= instance.OnHeal;
             @Heal.performed -= instance.OnHeal;
             @Heal.canceled -= instance.OnHeal;
+            @SpawnWeapon.started -= instance.OnSpawnWeapon;
+            @SpawnWeapon.performed -= instance.OnSpawnWeapon;
+            @SpawnWeapon.canceled -= instance.OnSpawnWeapon;
         }
 
         /// <summary>
@@ -464,5 +496,12 @@ public partial class @DebugInput: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnHeal(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "SpawnWeapon" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnSpawnWeapon(InputAction.CallbackContext context);
     }
 }

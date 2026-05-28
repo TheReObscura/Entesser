@@ -24,6 +24,7 @@ namespace Assets.Scripts.Core.Debug
         public bool Heal() => debugInput.Debug.Heal.WasPressedThisFrame();
         public bool GiveXP() => debugInput.Debug.GiveXP.WasPressedThisFrame();
         public bool SpawnItem() => debugInput.Debug.SpawnPotion.WasPressedThisFrame();
+        public bool SpawnWeapon() => debugInput.Debug.SpawnWeapon.WasPressedThisFrame();
 
     }
 }

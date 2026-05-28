@@ -12,7 +12,7 @@ public class PlayerHUD : MonoBehaviour
     public PlayerLevelSystem levelSystem;
     private void Start()
     {
-        Debug.Log(Player.Instance);
+       //Debug.Log(Player.Instance);
         player = Player.Instance;
     }
 
@@ -23,8 +23,7 @@ public class PlayerHUD : MonoBehaviour
 
         float xpNeeded = levelSystem.XPToNextLevel();
 
-        xpBar.fillAmount =
-            (float)levelSystem.currentXP / xpNeeded;
+        xpBar.fillAmount = (float)levelSystem.currentXP / xpNeeded;
 
         hpBar.fillAmount = player.stats.currentHP / player.stats.MaxHP;
         manaBar.fillAmount = player.stats.currentMana / player.stats.MaxMana;

@@ -11,16 +11,13 @@ public class HandItemView : MonoBehaviour
     {
         if (item == null)
         {
-            if (icon != null)
-                icon.enabled = false;
-
+            icon.enabled = false;
             return;
         }
 
-        if (icon != null)
-        {
-            icon.enabled = true;
+        icon.enabled = true;
+
+        if (item.icon != null)
             icon.sprite = item.icon;
-        }
     }
 }

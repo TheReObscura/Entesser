@@ -18,6 +18,7 @@ public class UIManager : MonoBehaviour
     public GameObject characteristics;
     public GameObject settings;
     public GameObject save;
+    public GameObject spells;
 
     private WindowType currentWindow = WindowType.None;
 
@@ -39,6 +40,7 @@ public class UIManager : MonoBehaviour
             { WindowType.Menu, ContextItem.None },
             { WindowType.Settings, ContextItem.None },
             {WindowType.Save, ContextItem.None  },
+            {WindowType.Spells, ContextItem.Sphere  },
         };
     }
 
@@ -98,6 +100,8 @@ public class UIManager : MonoBehaviour
             settings.SetActive(true);
         else if (type == WindowType.Save && save)
             save.SetActive(true);
+        else if (type == WindowType.Spells && spells)
+            spells.SetActive(true);
 
         UpdateInputMode();
     }
@@ -127,6 +131,7 @@ public class UIManager : MonoBehaviour
         if (characteristics) characteristics.SetActive(false);
         if (settings) settings.SetActive(false);
         if (save) save.SetActive(false);
+        if (spells) spells.SetActive(false);
     }
 
     public bool IsAnyWindowOpen()
@@ -158,7 +163,8 @@ public enum WindowType
     Characteristics,
     Menu,
     Settings,
-    Save
+    Save,
+    Spells
 }
 
 public enum ContextItem

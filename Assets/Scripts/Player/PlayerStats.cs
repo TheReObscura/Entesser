@@ -9,14 +9,14 @@ namespace Assets.Scripts.Player
     public class PlayerStats
     {
         // СТАРТОВЫЕ ХАРАКТЕРИСТИКИ
-        private const float baseStrength = 1f;
-        private const float baseMagic = 1f;
-        private const float baseSurvival = 1f;
+        private const int baseStrength = 1;
+        private const int baseMagic = 1;
+        private const int baseSurvival = 1;
 
         // ОСНОВНЫЕ ХАРАКТЕРИСТИКИ
-        public float strength = baseStrength;
-        public float magic = baseMagic;
-        public float survival = baseSurvival;
+        public int strength = baseStrength;
+        public int magic = baseMagic;
+        public int survival = baseSurvival;
 
         // БАЗОВЫЕ ПАРАМЕТРЫ
         public float baseHP = 100f;
@@ -29,9 +29,12 @@ namespace Assets.Scripts.Player
         // Для регенерации
         public float manaRegenRate = 2f;
         private float regenTimer;
-
+        // FIREEEBALLLL TUTUTUUTUTUT
+        public const int fireballLevelBase = 1;
+        public int fireballLevel = fireballLevelBase;
         // ОЧКИ УЛУЧШЕНИЯ
         public int upgradePoints = 0;
+        public int upgradePointsSpells = 0;
 
         // ПРОИЗВОДНЫЕ ХАРАКТЕРИСТИКИ
         public float PhysicalDamage => baseDamage + strength * 2f;
@@ -114,6 +117,23 @@ namespace Assets.Scripts.Player
             if (currentMana > MaxMana)
                 currentMana = MaxMana;
         }
+        public void IncreaseFireBall()
+        {
+            if (upgradePointsSpells <= 0)
+                return;
+
+            fireballLevel += 1;
+            upgradePointsSpells--;
+        }
+        public void DecreaseFireBall()
+        {
+            if (fireballLevel <= fireballLevelBase)
+                return;
+
+            fireballLevel -= 1;
+            upgradePointsSpells++;
+        }
+
         public void IncreaseStrength()
         {
             if (upgradePoints <= 0)

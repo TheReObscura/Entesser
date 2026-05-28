@@ -16,32 +16,32 @@ namespace Assets.Scripts.Player
         public int baseXP = 100;
         public int stepXP = 25;
 
-        Player player;
+        public Player player;
         void Start()
         {
             player.stats.Init();
-            player = Player.Instance;
         }
         void Update()
         {
             if (DebugInputCont.instance.GiveXP())
             {
-                AddXP(500);
+                AddXP(100);
             }
         }
+
         public void AddXP(int amount)
         {
+            if (level >= maxLevel) return;
             int needed = XPToNextLevel();
-
-            while (currentXP >= needed && level < maxLevel)
-            {
-                currentXP -= needed;
-                LevelUp();
-                needed = XPToNextLevel();
+            currentXP += amount; 
+            while (currentXP >= needed && level < maxLevel) 
+            { 
+                currentXP -= needed; 
+                LevelUp(); 
             }
         }
 
-        public int XPToNextLevel()
+        public  int XPToNextLevel()
         {
             return baseXP + (level * stepXP);
         }
@@ -51,6 +51,7 @@ namespace Assets.Scripts.Player
             level++;
 
             player.stats.upgradePoints += 1;
+            player.stats.upgradePointsSpells += 1;
 
             Debug.Log("Level Up! Level: " + level);
         }

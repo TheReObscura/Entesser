@@ -1,4 +1,5 @@
-﻿using Assets.Scripts.Player;
+﻿using Assets.Scripts.Items;
+using Assets.Scripts.Player;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -55,4 +56,12 @@ namespace Assets.Scripts.Items
             Debug.Log("THAT BITCH HEALED");
         }
     }
+}
+
+[CreateAssetMenu(fileName = "Weapon", menuName = "Inventory/Weapon")]
+public class WeaponData : ItemData
+{
+    public float damage = 10f;
+    public float range = 2f;
+    public float attackCooldown = 0.5f;
 }

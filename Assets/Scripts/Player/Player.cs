@@ -15,12 +15,13 @@ namespace Assets.Scripts.Player
         [SerializeField] private float walkingSpeed = 5f;
         [SerializeField] private float runningSpeed = 7f;
         private Vector2 inputVector;
-        private Vector2 lastMoveDirection = Vector2.right;
+        public Vector2 lastMoveDirection = Vector2.right;
         private bool isRunning;
         private bool isCrouching;
 
         public PlayerStats stats = new PlayerStats();
-        public PlayerItemSystem items = new PlayerItemSystem();
+
+        public PlayerItemSystem itemSystem = new PlayerItemSystem();
         // Рывок.
         [Header("Dash")]
         [SerializeField] private float dashSpeed = 10f;
@@ -32,6 +33,7 @@ namespace Assets.Scripts.Player
         private bool isDashing;
         // Подбор.
         public PlayerPickup pickup;
+        public HandItemView handView;
         void Start()
         {
             stats.Init();
@@ -40,6 +42,7 @@ namespace Assets.Scripts.Player
         {
             Instance = this;
             rigBody = GetComponent<Rigidbody2D>();
+
             pickup = GetComponent<PlayerPickup>();
         }
         // Вызывается каждый кадр. Решаю, че происходит.
@@ -51,7 +54,7 @@ namespace Assets.Scripts.Player
             isCrouching = GameInput.instance.IsCrouching();
             if (GameInput.instance.IsDashing() && dashCooldownTimer <= 0f) StartDash();
 
-            items.Tick(Time.deltaTime);
+            itemSystem.Tick(Time.deltaTime);
             Vector2 scroll = GameInput.instance.GetScroll();
 
             if (scroll.y != 0)

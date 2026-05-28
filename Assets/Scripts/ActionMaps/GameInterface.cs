@@ -46,6 +46,9 @@ public class GameInterface : MonoBehaviour
 
         if (interfaceInput.Interface.Achievements.WasPressedThisFrame())
             UIManager.instance.TryToggleWindow(WindowType.Achievements, context);
+
+        if (interfaceInput.Interface.Spells.WasPressedThisFrame())
+            UIManager.instance.TryToggleWindow(WindowType.Spells, context);
     }
 
     ContextItem GetCurrentContext()
